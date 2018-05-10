@@ -23,7 +23,7 @@ public class Caravan implements IUnit {
         canvas.draw(new Rectangle(x-10, y-5, 20, 10));
         canvas.setColor(new Color(0,0,0));
         canvas.draw(new Ellipse2D.Double(x-6, y+8, 4, 4));
-
+        canvas.draw(new Ellipse2D.Double(x+6, y+8, 4, 4));
     }
 
     @Override
