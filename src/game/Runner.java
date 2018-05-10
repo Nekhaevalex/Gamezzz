@@ -1,5 +1,7 @@
 package game;
 
+import Caravan.Caravan;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +22,7 @@ public class Runner {
     public static List<IUnit> init() {
         List<IUnit> units = new ArrayList();
         units.add(new Human(100,100,10,10,0));
+        units.add(new Caravan(150, 150));
         return units;
     }
 }
