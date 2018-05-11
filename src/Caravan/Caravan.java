@@ -20,10 +20,14 @@ public class Caravan implements IUnit {
     @Override
     public void draw(Graphics2D canvas) {
         canvas.setColor(new Color(255, 195,0));
-        canvas.draw(new Rectangle(x-10, y-5, 20, 10));
+        canvas.drawRect(x-10, y-5, 20,6);
+        canvas.fillRect(x-10, y-5, 20,6);
         canvas.setColor(new Color(0,0,0));
-        canvas.draw(new Ellipse2D.Double(x-6, y+8, 4, 4));
-        canvas.draw(new Ellipse2D.Double(x+6, y+8, 4, 4));
+        canvas.drawOval(x-10,y+1,4,4);
+        canvas.drawOval(x+5,y+1,4,4);
+        canvas.fillOval(x-10,y+1,4,4);
+        canvas.fillOval(x+5,y+1,4,4);
+
     }
 
     @Override
