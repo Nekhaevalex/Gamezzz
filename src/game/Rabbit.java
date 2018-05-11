@@ -15,7 +15,6 @@ public class Rabbit implements IUnit {
     private float vx =0;
     private float vy = mod;
     //
-    private int chaild = 0;
 
     public Rabbit(int x, int y, float time)
     {
