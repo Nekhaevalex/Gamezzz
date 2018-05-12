@@ -15,11 +15,24 @@ public class Rabbit implements IUnit {
     private float vx =0;
     private float vy = mod;
     //
+    private int children = 0;
 
-    public Rabbit(int x, int y, float time)
+    public Rabbit(int x, int y, float time, int childrens)
     {
+        this.x = x;
+        this.y = y;
         t = time;
+        children = childrens;
     }
+    public int getChildren()
+    {
+        return children;
+    }
+    public float getT()
+    {
+        return t;
+    }
+
     @Override
     public void draw(Graphics2D canvas) {
         canvas.setColor(Color.GRAY);
@@ -29,6 +42,7 @@ public class Rabbit implements IUnit {
 
     @Override
     public void step(IWorld world, float dt) {
+
         if(((int)(world.getTime()-t))%(int)(100*Math.random()+1) == 0) {
 
             vx = (-mod) + (float) ( 2 * mod * Math.random());
@@ -54,5 +68,12 @@ public class Rabbit implements IUnit {
         }
         this.x += vx*dt;
         this.y += vy*dt;
+        if(world.getTime()-t > 10000) {
+            world.removeUnit(this);
+        }
+        if((world.getTime()-t) > 2000*children && children < 5) {
+            world.addUnit(new Rabbit(x, y,world.getTime(),0));
+            children++;
+        }
     }
 }
