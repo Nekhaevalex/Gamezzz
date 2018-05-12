@@ -28,6 +28,14 @@ public class Rabbit implements IUnit {
     {
         return children;
     }
+    public int getX()
+    {
+        return x;
+    }
+    public int getY()
+    {
+        return y;
+    }
     public float getT()
     {
         return t;
