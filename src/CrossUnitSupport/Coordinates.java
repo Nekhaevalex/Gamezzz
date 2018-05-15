@@ -12,8 +12,24 @@ public class Coordinates {
         return y;
     }
 
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
     public Coordinates getXY() {
         return new Coordinates(x, y);
+    }
+
+    public boolean equals(Coordinates obj) {
+        if (this.x == obj.x && this.y == obj.y) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public Coordinates() {
