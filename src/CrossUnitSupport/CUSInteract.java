@@ -6,7 +6,7 @@ abstract public class CUSInteract implements Cloneable{
     public abstract void setXY(Coordinates position);
 
     @Override
-    protected Object clone() throws CloneNotSupportedException {
+    public Object clone() throws CloneNotSupportedException {
         return super.clone();
     }
 }
