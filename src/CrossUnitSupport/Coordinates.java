@@ -16,6 +16,14 @@ public class Coordinates {
         return new Coordinates(x, y);
     }
 
+    public boolean equals(Coordinates obj) {
+        if (this.x == obj.x && this.y == obj.y) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public Coordinates() {
 
     }
