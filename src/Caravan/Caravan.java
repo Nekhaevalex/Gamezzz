@@ -41,8 +41,8 @@ public class Caravan extends CUSInteract implements IUnit {
 
     private Coordinates selectPoint(int ww, int wh) {
         Random coordinatesSelector = new Random();
-        int x = coordinatesSelector.nextInt(Math.abs(ww-position.getX()));
-        int y = coordinatesSelector.nextInt(Math.abs(wh-position.getY()));
+        int x = coordinatesSelector.nextInt(ww-position.getX()+1);
+        int y = coordinatesSelector.nextInt(wh-position.getY()+1);
         return new Coordinates(x, y);
     }
 
@@ -60,16 +60,13 @@ public class Caravan extends CUSInteract implements IUnit {
         return units.get(target);
     }
 
-    private boolean calculationCompleated = false;
-
     private void move(float dt) {
         if (currentAction == Action.targetPoint) {
             int dx = (targetPoint.getX() - position.getX());
             int dy = (targetPoint.getY() - position.getY());
             int d = (int) Math.sqrt(dx*dx + dy*dy);
-            vx = Math.round(20*((float)dx / (float) d));
-            vy = Math.round(20*((float)dy / (float) d));
-            calculationCompleated = true;
+            vx = Math.round(2*((float)dx / (float) d));
+            vy = Math.round(2*((float)dy / (float) d));
             position.setX(position.getX() + (int) (vx * dt));
             position.setY(position.getY() + (int) (vy * dt));
         } else {
@@ -79,10 +76,9 @@ public class Caravan extends CUSInteract implements IUnit {
             }
             int dx = (a.getXY().getX() - position.getX());
             int dy = (a.getXY().getY() - position.getY());
-            int d = (int) Math.sqrt(dx ^ 2 + dy ^ 2);
-            vx = 20 * (dx / d);
-            vy = 20 * (dy / d);
-            calculationCompleated = true;
+            int d = (int) Math.sqrt(dx*dx + dy*dy);
+            vx = Math.round(2*((float)dx / (float) d));
+            vy = Math.round(2*((float)dy / (float) d));
             position.setX(position.getX() + (int) (vx * dt));
             position.setY(position.getY() + (int) (vy * dt));
         }
@@ -119,7 +115,9 @@ public class Caravan extends CUSInteract implements IUnit {
                 actionStatus = false;
             } else {
                 CUSInteract a = (CUSInteract) targetUnit;
-                if (position.equals(a.getXY())) {
+                int dx = Math.abs(position.getY()-a.getXY().getY());
+                int dy = Math.abs(position.getX()-a.getXY().getX());
+                if ((dx+dy)/2 < 10) {
                     currentAction = Action.pickUnit;
                     steal(world);
                     currentAction = Action.idle;
@@ -134,7 +132,6 @@ public class Caravan extends CUSInteract implements IUnit {
                 drop(world);
                 currentAction = Action.idle;
                 actionStatus = false;
-                calculationCompleated = false;
             }
         }
     }
@@ -148,17 +145,13 @@ public class Caravan extends CUSInteract implements IUnit {
             e.printStackTrace();
         }
         if (currentAction == Action.idle) {
-            int selected = selector.nextInt(3);
-            if (selected == 1) {
+            int selected = selector.nextInt(100);
+            if (selected <= 50) {
                 currentAction = Action.targetUnit;
                 actionStatus = false;
-            } else if (selected == 2) {
+            } else if (selected > 50) {
                 currentAction = Action.targetPoint;
                 actionStatus = false;
-            } else if (selected == 3) {
-                currentAction = Action.pickUnit;
-            } else if (selected == 4) {
-                currentAction = Action.dropUnit;
             }
         }
         if (currentAction == Action.targetPoint) {
