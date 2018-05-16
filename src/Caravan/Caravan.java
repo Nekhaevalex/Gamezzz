@@ -9,8 +9,6 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Random;
 
-//TODO: Караван, – время жизни: infinity, – повозка: желтая, 10x20px, – берет и увозит с собой, сбрасывает в случайном месте,– скорость 20
-
 public class Caravan extends CUSInteract implements IUnit {
 
     //Position:
@@ -43,8 +41,8 @@ public class Caravan extends CUSInteract implements IUnit {
 
     private Coordinates selectPoint(int ww, int wh) {
         Random coordinatesSelector = new Random();
-        int x = coordinatesSelector.nextInt(ww-position.getX());
-        int y = coordinatesSelector.nextInt(wh-position.getY());
+        int x = coordinatesSelector.nextInt(Math.abs(ww-position.getX()));
+        int y = coordinatesSelector.nextInt(Math.abs(wh-position.getY()));
         return new Coordinates(x, y);
     }
 
@@ -105,6 +103,7 @@ public class Caravan extends CUSInteract implements IUnit {
             object.setXY(position);
             IUnit readyToDropUnit = (IUnit) object;
             world.addUnit(readyToDropUnit);
+            inventory.remove(readyToDropUnit);
         }
     }
 
