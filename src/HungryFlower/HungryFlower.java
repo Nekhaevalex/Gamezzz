@@ -86,7 +86,8 @@ public class HungryFlower extends CUSInteract implements IUnit {
 
     @Override
     public void setXY(Coordinates position) {
-
+        this.x = position.getX();
+        this.y = position.getY();
     }
 
     public HungryFlower(float birthtime) {
