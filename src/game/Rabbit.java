@@ -1,10 +1,13 @@
 package game;
 
+import CrossUnitSupport.CUSInteract;
+import CrossUnitSupport.Coordinates;
+
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
 import java.util.Random;
 
-public class Rabbit implements IUnit {
+public class Rabbit extends CUSInteract implements IUnit {
     //центр пидора
     private int x, y;
     //
@@ -16,6 +19,29 @@ public class Rabbit implements IUnit {
     private float vy = mod;
     //
     private int children = 0;
+
+    @Override
+    public Coordinates getXY() {
+        return new Coordinates(x,y);
+    }
+
+    @Override
+    public void setXY(Coordinates position) {
+        this.x = position.getX();
+        this.y = position.getY();
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    public boolean equals(Coordinates obj) {
+        return getXY().equals(obj);
+    }
 
     public Rabbit(int x, int y, float time, int childrens)
     {
@@ -83,5 +109,16 @@ public class Rabbit implements IUnit {
             world.addUnit(new Rabbit(x, y,world.getTime(),0));
             children++;
         }
+    }
+
+    public Rabbit(Rabbit rabbit) {
+        this.x = rabbit.x;
+        this.y = rabbit.y;
+        this.children = rabbit.children;
+        this.mod = rabbit.mod;
+        this.R = rabbit.R;
+        this.t = rabbit.t;
+        this.vx = rabbit.vx;
+        this.vy = rabbit.vy;
     }
 }

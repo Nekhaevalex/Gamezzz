@@ -1,6 +1,6 @@
 package game;
 
-import Caravan.Caravan;
+import HungryFlower.HungryFlower;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +24,7 @@ public class Runner {
         units.add(new Human(100,100,10,10,0));
         for(int i =0;i<1;++i)
             units.add(new Rabbit(100,100,0,0));
-            units.add(new Caravan(50,50));
+            units.add(new HungryFlower(0));
         return units;
     }
 }
