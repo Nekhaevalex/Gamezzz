@@ -9,6 +9,8 @@ import game.IWorld;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import static java.lang.Math.abs;
+import static java.lang.Math.sqrt;
 
 public class Dragon extends CUSInteract implements IUnit {
     //position
@@ -18,11 +20,14 @@ public class Dragon extends CUSInteract implements IUnit {
     private int w = 10;
     private int h = 10;
     //speed;
-    private int vx = 50;
-    private int vy = 50;
+    private int vx = 3;
+    private int vy = 3;
     //
     private float b = 0;
     private int children = 0;
+    //hunt
+    private IUnit nearest_flower;
+    private double distance;
 
     public Dragon(int x, int y, int w, int h,float time) {
         this.x = x;
@@ -30,6 +35,7 @@ public class Dragon extends CUSInteract implements IUnit {
         this.w = w;
         this.h = h;
         this.b = time;
+        this.distance = 100000;
     }
 
     @Override
@@ -40,40 +46,62 @@ public class Dragon extends CUSInteract implements IUnit {
 
     @Override
     public void step(IWorld world, float dt) {
-        int ww = world.getWidth();
-        int wh = world.getHeight();
-        if(this.x >= ww && vx > 0) {
-            vx *= -1;
-        }
-        if(this.y >= wh && vy > 0) {
-            vy *= -1;
-        }
-        if(this.x <= 0 && vx < 0) {
-            vx *= -1;
-        }
-        if(this.y <= 0 && vy < 0) {
-            vy *= -1;
-        }
-        this.x += vx*dt;
-        this.y += vy*dt;
-
         Iterable<IUnit> unit_list = world.getUnits();
+        int x_min = 0, y_min = 0; //расстояние до ближайшего цветка
         for (IUnit i : unit_list) {
-            if (i instanceof  CUSInteract) {
+            if (i instanceof CUSInteract) {
                 CUSInteract a = (CUSInteract) i;
-                if (i.getClass() == HungryFlower.class) {
-                    if ((a.getXY().getX() * a.getXY().getX() + a.getXY().getY() * a.getXY().getY()) <= 20 * 20) {
-                        world.removeUnit(i);
-                        world.addUnit(new Dragon(x+20, y+20, w, h, (int)world.getTime()));
+                if (distance == 100000) {
+                    if (i.getClass() == HungryFlower.class) {
+                        if (distance > sqrt((a.getXY().getX() - x) * (a.getXY().getX() - x) +
+                                (a.getXY().getY() - y) * (a.getXY().getY() - y))) {
+                            x_min = a.getXY().getX();
+                            y_min = a.getXY().getY();
+                            distance = sqrt((x_min - x) * (x_min - x) + (y_min - y)* (y_min - y));
+                            nearest_flower = i;
+                        }
                     }
+                } else {
+                    x_min = ((CUSInteract) nearest_flower).getXY().getX();
+                    y_min = ((CUSInteract) nearest_flower).getXY().getY();
+                    distance = sqrt((x_min - x) * (x_min - x) + (y_min - y)* (y_min - y));
                 }
+            }
+        }
+        //Дракон делает шаг
+        if (abs(x_min - x) < vx) {
+            this.x = x_min;
+        } else {
+            if (x_min > x) {
+                this.x += vx * dt;
+            } else {
+                this.x -= vx * dt;
+            }
+        }
+        if (abs(y_min - y) < vy) {
+            this.y = y_min;
+        } else {
+            if (y_min > y) {
+                this.y += vy * dt;
+            } else {
+                this.y -= vy * dt;
+            }
+        }
+//        for (IUnit i : unit_list) {
+//            if (i instanceof  CUSInteract) {
+//                CUSInteract a = (CUSInteract) i;
+        if (distance <= 40) {
+            world.removeUnit(nearest_flower);
+            distance = 100000;
+            world.addUnit(new Dragon(x+20, y+20, w, h, (int)world.getTime()));
+        }
 //                if (i == wolf) {
 //                    if ((i.x * i.x + i.y * i.y) <= 20 * 20) {
 //                        world.removeUnit(i);
 //                    }
 //                }
-            }
-        }
+//            }
+//        }
     }
 
     @Override
