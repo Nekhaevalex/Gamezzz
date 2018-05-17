@@ -41,8 +41,8 @@ public class Caravan extends CUSInteract implements IUnit {
 
     private Coordinates selectPoint(int ww, int wh) {
         Random coordinatesSelector = new Random();
-        int x = coordinatesSelector.nextInt(ww-position.getX()+1);
-        int y = coordinatesSelector.nextInt(wh-position.getY()+1);
+        int x = coordinatesSelector.nextInt(ww-position.getX()+10);
+        int y = coordinatesSelector.nextInt(wh-position.getY()+10);
         return new Coordinates(x, y);
     }
 

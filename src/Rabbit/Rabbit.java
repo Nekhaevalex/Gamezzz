@@ -1,11 +1,11 @@
-package game;
+package Rabbit;
 
 import CrossUnitSupport.CUSInteract;
 import CrossUnitSupport.Coordinates;
+import game.IUnit;
+import game.IWorld;
 
 import java.awt.*;
-import java.awt.geom.Ellipse2D;
-import java.util.Random;
 
 public class Rabbit extends CUSInteract implements IUnit {
     //центр пидора
@@ -15,7 +15,7 @@ public class Rabbit extends CUSInteract implements IUnit {
     private float t = 0;
     //speed;
     private float mod = 1;
-    private float vx =0;
+    private float vx = 0;
     private float vy = mod;
     //
     private int children = 0;

@@ -4,7 +4,7 @@ import CrossUnitSupport.CUSInteract;
 import CrossUnitSupport.Coordinates;
 import game.IUnit;
 import game.IWorld;
-import game.Rabbit;
+import Rabbit.Rabbit;
 
 import java.awt.*;
 import java.util.ArrayList;

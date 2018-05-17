@@ -1,6 +1,6 @@
 package Hole;
 
-import game.Rabbit;
+import Rabbit.Rabbit;
 
 public class RabbitPack {
     private Rabbit rabbit;

@@ -4,6 +4,7 @@ import Caravan.Caravan;
 import Dragon.Dragon;
 import Hole.Hole;
 import HungryFlower.HungryFlower;
+import Rabbit.Rabbit;
 
 import java.util.ArrayList;
 import java.util.List;
