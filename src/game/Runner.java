@@ -1,6 +1,7 @@
 package game;
 
 import Caravan.Caravan;
+import Dragon.Dragon;
 import Hole.Hole;
 import HungryFlower.HungryFlower;
 
@@ -29,6 +30,7 @@ public class Runner {
             units.add(new HungryFlower(0));
             units.add(new Caravan(100, 150));
             units.add(new Hole(250, 300));
+            units.add(new Dragon(300, 100, 10, 10, 0));
         return units;
     }
 }
